@@ -1,6 +1,8 @@
 <div class="form-section" id="travel_agencySection">
     <h2 style="margin-bottom: 1.5rem; color: var(--primary-color);">Travel Agency Registration</h2>
     
+    @include('business-registration.partials.account_fields')
+    
     <div class="form-group">
         <label class="form-label" for="ta_name">Name <span class="required">*</span></label>
         <input type="text" class="form-control" id="ta_name" name="name" value="{{ old('name') }}" required>

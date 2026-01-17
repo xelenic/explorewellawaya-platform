@@ -12,6 +12,9 @@
 
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 
     <style>
         * {
@@ -480,6 +483,12 @@
                     </a>
                 </li>
                 <li>
+                    <a href="{{ route('admin.destinations.index') }}" class="{{ request()->routeIs('admin.destinations.*') ? 'active' : '' }}">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Destinations</span>
+                    </a>
+                </li>
+                <li>
                     <a href="{{ url('/') }}" target="_blank">
                         <i class="fas fa-external-link-alt"></i>
                         <span>View Website</span>
@@ -548,6 +557,9 @@
         </div>
     </div>
 
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    
     <script>
         // Mobile menu toggle
         document.getElementById('menuToggle')?.addEventListener('click', function() {

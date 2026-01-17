@@ -1,6 +1,8 @@
 <div class="form-section" id="hotelSection">
     <h2 style="margin-bottom: 1.5rem; color: var(--primary-color);">Hotel Registration</h2>
     
+    @include('business-registration.partials.account_fields')
+    
     <div class="form-group">
         <label class="form-label" for="hotel_name">Hotel Name <span class="required">*</span></label>
         <input type="text" class="form-control" id="hotel_name" name="name" value="{{ old('name') }}" required>

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Blog;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 
 class BlogController extends Controller
 {
@@ -37,9 +38,18 @@ class BlogController extends Controller
             'excerpt' => ['nullable', 'string', 'max:500'],
             'content' => ['required', 'string'],
             'featured_image' => ['nullable', 'string', 'max:255'],
+            'featured_image_file' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,webp', 'max:5120'],
             'is_published' => ['boolean'],
             'published_at' => ['nullable', 'date'],
         ]);
+
+        // Handle file upload
+        if ($request->hasFile('featured_image_file')) {
+            $image = $request->file('featured_image_file');
+            $imageName = time() . '_' . Str::random(10) . '.' . $image->getClientOriginalExtension();
+            $imagePath = $image->storeAs('blogs', $imageName, 'public');
+            $validated['featured_image'] = Storage::url($imagePath);
+        }
 
         // Generate slug if not provided
         if (empty($validated['slug'])) {
@@ -55,9 +65,24 @@ class BlogController extends Controller
         $validated['user_id'] = auth()->id();
         $validated['is_published'] = $request->has('is_published');
 
-        if ($validated['is_published'] && empty($validated['published_at'])) {
-            $validated['published_at'] = now();
+        // Set published_at if publishing
+        if ($validated['is_published']) {
+            if (empty($validated['published_at'])) {
+                $validated['published_at'] = now();
+            } else {
+                // If published_at is in the future, set it to now() to make it visible immediately
+                $publishedAt = \Carbon\Carbon::parse($validated['published_at']);
+                if ($publishedAt->isFuture()) {
+                    $validated['published_at'] = now();
+                }
+            }
+        } else {
+            // If not published, don't set published_at
+            $validated['published_at'] = null;
         }
+
+        // Remove the file input from validated data
+        unset($validated['featured_image_file']);
 
         Blog::create($validated);
 
@@ -93,9 +118,24 @@ class BlogController extends Controller
             'excerpt' => ['nullable', 'string', 'max:500'],
             'content' => ['required', 'string'],
             'featured_image' => ['nullable', 'string', 'max:255'],
+            'featured_image_file' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,webp', 'max:5120'],
             'is_published' => ['boolean'],
             'published_at' => ['nullable', 'date'],
         ]);
+
+        // Handle file upload
+        if ($request->hasFile('featured_image_file')) {
+            // Delete old image if it exists and is stored locally
+            if ($blog->featured_image && strpos($blog->featured_image, '/storage/') !== false) {
+                $oldImagePath = str_replace('/storage/', '', $blog->featured_image);
+                Storage::disk('public')->delete($oldImagePath);
+            }
+
+            $image = $request->file('featured_image_file');
+            $imageName = time() . '_' . Str::random(10) . '.' . $image->getClientOriginalExtension();
+            $imagePath = $image->storeAs('blogs', $imageName, 'public');
+            $validated['featured_image'] = Storage::url($imagePath);
+        }
 
         // Generate slug if not provided
         if (empty($validated['slug'])) {
@@ -112,9 +152,26 @@ class BlogController extends Controller
 
         $validated['is_published'] = $request->has('is_published');
 
-        if ($validated['is_published'] && empty($validated['published_at'])) {
-            $validated['published_at'] = $blog->published_at ?? now();
+        // Set published_at if publishing
+        if ($validated['is_published']) {
+            if (empty($validated['published_at'])) {
+                $validated['published_at'] = $blog->published_at ?? now();
+            } else {
+                // If published_at is in the future, set it to now() to make it visible immediately
+                $publishedAt = \Carbon\Carbon::parse($validated['published_at']);
+                if ($publishedAt->isFuture()) {
+                    $validated['published_at'] = now();
+                }
+            }
+        } else {
+            // If not published, keep existing published_at or set to null
+            if (!$blog->is_published) {
+                $validated['published_at'] = null;
+            }
         }
+
+        // Remove the file input from validated data
+        unset($validated['featured_image_file']);
 
         $blog->update($validated);
 

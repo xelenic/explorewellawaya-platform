@@ -154,6 +154,21 @@
             display: block;
         }
 
+        /* Hide all fields in non-active sections */
+        .form-section:not(.active) {
+            position: absolute;
+            left: -9999px;
+            opacity: 0;
+            pointer-events: none;
+            visibility: hidden;
+        }
+
+        .form-section:not(.active) input,
+        .form-section:not(.active) textarea,
+        .form-section:not(.active) select {
+            display: none !important;
+        }
+
         .form-group {
             margin-bottom: 1.5rem;
         }
@@ -422,57 +437,171 @@
             <!-- Experience Provider Form -->
             @include('business-registration.forms.experience_provider')
 
-            <div class="back-link">
+            <div class="back-link" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
                 <a href="{{ url('/') }}"><i class="fas fa-arrow-left"></i> Back to Website</a>
+                @guest
+                    <a href="{{ route('login') }}" style="color: var(--secondary-color); text-decoration: none; font-weight: 500; display: inline-flex; align-items: center; gap: 0.5rem;">
+                        <i class="fas fa-sign-in-alt"></i> Login
+                    </a>
+                @endguest
             </div>
         </form>
     </div>
 
     <script>
-        // Category selection
-        const categoryCards = document.querySelectorAll('.category-card');
-        const continueBtn = document.getElementById('continueBtn');
-        const registrationTypeInput = document.getElementById('registration_type');
-        const categorySection = document.getElementById('categorySection');
-        const step1 = document.getElementById('step1');
-        const step2 = document.getElementById('step2');
+        (function() {
+            'use strict';
 
-        let selectedType = '';
+            const categoryCards = document.querySelectorAll('.category-card');
+            const continueBtn = document.getElementById('continueBtn');
+            const registrationTypeInput = document.getElementById('registration_type');
+            const categorySection = document.getElementById('categorySection');
+            const step1 = document.getElementById('step1');
+            const step2 = document.getElementById('step2');
+            const registrationForm = document.getElementById('registrationForm');
 
-        categoryCards.forEach(card => {
-            card.addEventListener('click', function() {
-                categoryCards.forEach(c => c.classList.remove('active'));
-                this.classList.add('active');
-                selectedType = this.dataset.type;
+            let selectedType = '{{ old("registration_type") }}';
+
+            // Function to disable all fields in hidden sections
+            // Disabled fields are NOT validated by HTML5 validation
+            function updateFieldStates() {
+                const activeSection = document.querySelector('.form-section.active');
+                const activeSectionId = activeSection ? activeSection.id : null;
+
+                // First, disable ALL fields in ALL form sections
+                document.querySelectorAll('.form-section').forEach(section => {
+                    const inputs = section.querySelectorAll('input, textarea, select');
+
+                    inputs.forEach(field => {
+                        // Skip the hidden registration_type field - always enable it
+                        if (field.id === 'registration_type' || field.name === 'registration_type') {
+                            return;
+                        }
+
+                        // Disable all fields first
+                        field.disabled = true;
+
+                        // Also remove required to be safe (we'll add it back if needed)
+                        if (field.hasAttribute('required')) {
+                            field.dataset.hadRequired = 'true';
+                            field.removeAttribute('required');
+                        }
+                    });
+                });
+
+                // Then, enable fields only in the active form section (not categorySection)
+                if (activeSection && activeSectionId && activeSectionId !== 'categorySection') {
+                    const inputs = activeSection.querySelectorAll('input, textarea, select');
+
+                    inputs.forEach(field => {
+                        // Skip the hidden registration_type field
+                        if (field.id === 'registration_type' || field.name === 'registration_type') {
+                            return;
+                        }
+
+                        // Enable fields in active form section
+                        field.disabled = false;
+
+                        // Restore required attribute if it originally had it
+                        if (field.dataset.hadRequired === 'true') {
+                            field.setAttribute('required', 'required');
+                        }
+                    });
+                }
+            }
+
+            // Function to show a specific section
+            function showSection(sectionId) {
+                // Hide all sections
+                document.querySelectorAll('.form-section').forEach(section => {
+                    section.classList.remove('active');
+                });
+
+                // Show target section
+                const targetSection = document.getElementById(sectionId);
+                if (targetSection) {
+                    targetSection.classList.add('active');
+                }
+
+                // Update field states (enable/disable)
+                updateFieldStates();
+            }
+
+            // Initialize field states on page load
+            updateFieldStates();
+
+            // Initialize form state if there are validation errors
+            @if($errors->any() && old('registration_type'))
+                selectedType = '{{ old("registration_type") }}';
                 registrationTypeInput.value = selectedType;
-                continueBtn.style.display = 'block';
+
+                // Show the appropriate section
+                showSection('{{ old("registration_type") }}Section');
+                step1.classList.remove('active');
+                step2.classList.add('active');
+
+                // Mark the selected category card
+                categoryCards.forEach(card => {
+                    if (card.dataset.type === selectedType) {
+                        card.classList.add('active');
+                    }
+                });
+            @endif
+
+            // Category selection
+            categoryCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    categoryCards.forEach(c => c.classList.remove('active'));
+                    this.classList.add('active');
+                    selectedType = this.dataset.type;
+                    registrationTypeInput.value = selectedType;
+                    continueBtn.style.display = 'block';
+                });
             });
-        });
 
-        continueBtn.addEventListener('click', function() {
-            if (!selectedType) return;
+            // Continue button handler
+            continueBtn.addEventListener('click', function() {
+                if (!selectedType) {
+                    alert('Please select a business category first.');
+                    return;
+                }
 
-            categorySection.classList.remove('active');
-            document.getElementById(selectedType + 'Section').classList.add('active');
-            step1.classList.remove('active');
-            step2.classList.add('active');
-            window.scrollTo(0, 0);
-        });
-
-        function goBack() {
-            document.querySelectorAll('.form-section').forEach(section => {
-                section.classList.remove('active');
+                // Show selected form section
+                showSection(selectedType + 'Section');
+                step1.classList.remove('active');
+                step2.classList.add('active');
+                window.scrollTo(0, 0);
             });
-            categorySection.classList.add('active');
-            step2.classList.remove('active');
-            step1.classList.add('active');
-            selectedType = '';
-            registrationTypeInput.value = '';
-            continueBtn.style.display = 'none';
-            categoryCards.forEach(c => c.classList.remove('active'));
-            window.scrollTo(0, 0);
-        }
+
+            // Go back function
+            window.goBack = function() {
+                showSection('categorySection');
+                step2.classList.remove('active');
+                step1.classList.add('active');
+                selectedType = '';
+                registrationTypeInput.value = '';
+                continueBtn.style.display = 'none';
+                categoryCards.forEach(c => c.classList.remove('active'));
+                window.scrollTo(0, 0);
+            };
+
+            // Form submission handler - must run BEFORE HTML5 validation
+            registrationForm.addEventListener('submit', function(e) {
+                // Validate registration type is selected
+                if (!registrationTypeInput.value) {
+                    e.preventDefault();
+                    alert('Please select a business category first.');
+                    return false;
+                }
+
+                // CRITICAL: Ensure only active section fields are enabled BEFORE validation
+                // Disabled fields are NOT validated
+                updateFieldStates();
+
+                // Allow form to submit - HTML5 validation will only check enabled fields
+                return true;
+            }, false);
+        })();
     </script>
 </body>
 </html>
-

@@ -1,6 +1,8 @@
 <div class="form-section" id="mass_mediaSection">
     <h2 style="margin-bottom: 1.5rem; color: var(--primary-color);">Mass Media Registration</h2>
     
+    @include('business-registration.partials.account_fields')
+    
     <div class="form-group">
         <label class="form-label" for="mm_name">Name <span class="required">*</span></label>
         <input type="text" class="form-control" id="mm_name" name="name" value="{{ old('name') }}" required>

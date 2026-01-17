@@ -1,6 +1,8 @@
 <div class="form-section" id="innovationSection">
     <h2 style="margin-bottom: 1.5rem; color: var(--primary-color);">Innovation Registration</h2>
     
+    @include('business-registration.partials.account_fields')
+    
     <div class="form-group">
         <label class="form-label" for="inv_name">Name <span class="required">*</span></label>
         <input type="text" class="form-control" id="inv_name" name="name" value="{{ old('name') }}" required>

@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class SocialMediaActivist extends Model
 {
     protected $fillable = [
+        'user_id',
         'name',
         'address',
         'page_names',

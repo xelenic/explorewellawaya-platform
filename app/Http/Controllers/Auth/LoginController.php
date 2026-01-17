@@ -24,7 +24,15 @@ class LoginController extends Controller
         if (Auth::attempt($request->only('email', 'password'), $request->boolean('remember'))) {
             $request->session()->regenerate();
 
-            return redirect()->intended(route('admin.dashboard'));
+            // Redirect based on user role
+            if (Auth::user()->hasRole('admin')) {
+                return redirect()->intended(route('admin.dashboard'));
+            } elseif (Auth::user()->hasRole('business_owner')) {
+                return redirect()->intended(route('business.dashboard'));
+            }
+
+            // Default redirect for other users
+            return redirect()->intended('/');
         }
 
         throw ValidationException::withMessages([

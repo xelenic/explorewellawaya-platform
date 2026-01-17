@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Destination;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 
 class DestinationController extends Controller
 {
@@ -38,6 +39,7 @@ class DestinationController extends Controller
             'location' => ['required', 'string', 'max:255'],
             'category' => ['required', 'string', 'max:255'],
             'featured_image' => ['nullable', 'string', 'max:255'],
+            'featured_image_file' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,webp', 'max:5120'],
             'images' => ['nullable', 'string'],
             'highlights' => ['nullable', 'string'],
             'best_time_to_visit' => ['nullable', 'string', 'max:255'],
@@ -48,6 +50,14 @@ class DestinationController extends Controller
             'is_published' => ['boolean'],
             'published_at' => ['nullable', 'date'],
         ]);
+
+        // Handle file upload
+        if ($request->hasFile('featured_image_file')) {
+            $image = $request->file('featured_image_file');
+            $imageName = time() . '_' . Str::random(10) . '.' . $image->getClientOriginalExtension();
+            $imagePath = $image->storeAs('destinations', $imageName, 'public');
+            $validated['featured_image'] = Storage::url($imagePath);
+        }
 
         // Generate slug if not provided
         if (empty($validated['slug'])) {
@@ -71,6 +81,9 @@ class DestinationController extends Controller
         if (!empty($validated['images'])) {
             $validated['images'] = json_encode(array_filter(explode(',', $validated['images'])));
         }
+
+        // Remove the file input from validated data
+        unset($validated['featured_image_file']);
 
         Destination::create($validated);
 
@@ -107,6 +120,7 @@ class DestinationController extends Controller
             'location' => ['required', 'string', 'max:255'],
             'category' => ['required', 'string', 'max:255'],
             'featured_image' => ['nullable', 'string', 'max:255'],
+            'featured_image_file' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,webp', 'max:5120'],
             'images' => ['nullable', 'string'],
             'highlights' => ['nullable', 'string'],
             'best_time_to_visit' => ['nullable', 'string', 'max:255'],
@@ -117,6 +131,27 @@ class DestinationController extends Controller
             'is_published' => ['boolean'],
             'published_at' => ['nullable', 'date'],
         ]);
+
+        // Handle file upload
+        if ($request->hasFile('featured_image_file')) {
+            // Delete old image if it exists and is stored locally
+            if ($destination->featured_image && strpos($destination->featured_image, '/storage/') !== false) {
+                $oldImagePath = str_replace('/storage/', '', $destination->featured_image);
+                Storage::disk('public')->delete($oldImagePath);
+            }
+
+            $image = $request->file('featured_image_file');
+            $imageName = time() . '_' . Str::random(10) . '.' . $image->getClientOriginalExtension();
+            $imagePath = $image->storeAs('destinations', $imageName, 'public');
+            $validated['featured_image'] = Storage::url($imagePath);
+        } elseif ($request->has('featured_image') && empty($request->input('featured_image'))) {
+            // If URL is cleared, delete existing file if it's stored locally
+            if ($destination->featured_image && strpos($destination->featured_image, '/storage/') !== false) {
+                $oldImagePath = str_replace('/storage/', '', $destination->featured_image);
+                Storage::disk('public')->delete($oldImagePath);
+            }
+            $validated['featured_image'] = null;
+        }
 
         // Generate slug if not provided
         if (empty($validated['slug'])) {
@@ -141,6 +176,9 @@ class DestinationController extends Controller
         if (!empty($validated['images'])) {
             $validated['images'] = json_encode(array_filter(explode(',', $validated['images'])));
         }
+
+        // Remove the file input from validated data
+        unset($validated['featured_image_file']);
 
         $destination->update($validated);
 

@@ -149,6 +149,12 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+            display: block;
+        }
+
+        .destination-card-image i {
+            position: absolute;
+            z-index: 1;
         }
 
         .destination-card-badge {

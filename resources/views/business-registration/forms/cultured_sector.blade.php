@@ -1,6 +1,8 @@
 <div class="form-section" id="cultured_sectorSection">
     <h2 style="margin-bottom: 1.5rem; color: var(--primary-color);">Cultured Sector Registration</h2>
     
+    @include('business-registration.partials.account_fields')
+    
     <div class="form-group">
         <label class="form-label" for="cs_name">Name <span class="required">*</span></label>
         <input type="text" class="form-control" id="cs_name" name="name" value="{{ old('name') }}" required>

@@ -18,12 +18,16 @@ class AdminSeeder extends Seeder
         // Create admin role
         $adminRole = Role::firstOrCreate(['name' => 'admin']);
 
+        // Create business_owner role
+        $businessOwnerRole = Role::firstOrCreate(['name' => 'business_owner']);
+
         // Create some basic permissions
         $permissions = [
             'manage users',
             'manage roles',
             'manage permissions',
             'view dashboard',
+            'manage business',
         ];
 
         foreach ($permissions as $permission) {
@@ -32,6 +36,10 @@ class AdminSeeder extends Seeder
 
         // Assign all permissions to admin role
         $adminRole->givePermissionTo(Permission::all());
+
+        // Assign business management permission to business_owner role
+        $businessOwnerRole->givePermissionTo('manage business');
+        $businessOwnerRole->givePermissionTo('view dashboard');
 
         // Create admin user
         $admin = User::firstOrCreate(
@@ -52,5 +60,6 @@ class AdminSeeder extends Seeder
         $this->command->info('Email: admin@wellawaya.com');
         $this->command->info('Password: password');
         $this->command->warn('Please change the password after first login!');
+        $this->command->info('Business owner role created successfully!');
     }
 }

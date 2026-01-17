@@ -1,6 +1,8 @@
 <div class="form-section" id="handy_craftSection">
     <h2 style="margin-bottom: 1.5rem; color: var(--primary-color);">Handy Craft Registration</h2>
     
+    @include('business-registration.partials.account_fields')
+    
     <div class="form-group">
         <label class="form-label" for="hc_name">Name <span class="required">*</span></label>
         <input type="text" class="form-control" id="hc_name" name="name" value="{{ old('name') }}" required>

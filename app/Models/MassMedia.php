@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class MassMedia extends Model
 {
     protected $fillable = [
+        'user_id',
         'name',
         'address',
         'types',

@@ -40,6 +40,245 @@
             overflow-x: hidden;
         }
         
+        /* Countdown Overlay */
+        .countdown-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #2d5016 0%, #6b8e23 50%, #2d5016 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 8s ease infinite;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            cursor: pointer;
+            transition: opacity 0.8s ease, visibility 0.8s ease;
+        }
+        
+        .countdown-overlay.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+        
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        /* Animated Background Particles */
+        .particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        
+        .particle {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: float 15s infinite ease-in-out;
+        }
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) translateX(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            50% {
+                transform: translateY(-100vh) translateX(50px) rotate(180deg);
+            }
+        }
+        
+        /* Countdown Container */
+        .countdown-container {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+        }
+        
+        .countdown-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: var(--white);
+            margin-bottom: 1rem;
+            text-shadow: 0 0 30px rgba(255, 255, 255, 0.5);
+            animation: pulse 2s ease-in-out infinite;
+            letter-spacing: 3px;
+        }
+        
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+                text-shadow: 0 0 30px rgba(255, 255, 255, 0.5);
+            }
+            50% {
+                transform: scale(1.05);
+                text-shadow: 0 0 50px rgba(255, 255, 255, 0.8);
+            }
+        }
+        
+        .countdown-subtitle {
+            font-size: 1.5rem;
+            color: var(--accent-color);
+            margin-bottom: 3rem;
+            font-weight: 300;
+            letter-spacing: 2px;
+            animation: fadeInUp 1s ease 0.3s both;
+        }
+        
+        /* Countdown Numbers */
+        .countdown-numbers {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+        
+        .countdown-item {
+            position: relative;
+            width: 120px;
+            height: 120px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .countdown-circle {
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-top-color: var(--accent-color);
+            border-radius: 50%;
+            animation: spin 2s linear infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .countdown-number {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: var(--white);
+            line-height: 1;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+            animation: numberPop 0.5s ease;
+            z-index: 1;
+        }
+        
+        @keyframes numberPop {
+            0% {
+                transform: scale(0);
+                opacity: 0;
+            }
+            50% {
+                transform: scale(1.2);
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+        
+        .countdown-label {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-top: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            z-index: 1;
+        }
+        
+        /* Skip Button */
+        .skip-button {
+            margin-top: 2rem;
+            padding: 1rem 2.5rem;
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            border-radius: 50px;
+            color: var(--white);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            letter-spacing: 1px;
+        }
+        
+        .skip-button:hover {
+            background: rgba(255, 255, 255, 0.3);
+            border-color: var(--accent-color);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.3);
+        }
+        
+        .skip-hint {
+            margin-top: 1rem;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+            animation: fadeIn 1s ease 2s both;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Responsive Countdown */
+        @media (max-width: 768px) {
+            .countdown-title {
+                font-size: 2.5rem;
+            }
+            
+            .countdown-subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .countdown-item {
+                width: 80px;
+                height: 80px;
+            }
+            
+            .countdown-circle {
+                width: 80px;
+                height: 80px;
+            }
+            
+            .countdown-number {
+                font-size: 2.5rem;
+            }
+            
+            .countdown-numbers {
+                gap: 1rem;
+            }
+        }
+        
         h1, h2, h3, h4, h5, h6 {
             font-family: 'Nunito', sans-serif;
             font-weight: 700;
@@ -237,6 +476,9 @@
             box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
             transition: all 0.3s ease;
             cursor: pointer;
+            display: block;
+            text-decoration: none;
+            color: inherit;
         }
         
         .destination-card:hover {
@@ -248,6 +490,7 @@
             width: 100%;
             height: 250px;
             object-fit: cover;
+            display: block;
         }
         
         .destination-card-content {
@@ -265,16 +508,17 @@
             margin-bottom: 1rem;
         }
         
-        .destination-card a {
+        .destination-card .explore-link {
             color: var(--secondary-color);
             text-decoration: none;
             font-weight: 600;
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
+            transition: color 0.3s ease;
         }
         
-        .destination-card a:hover {
+        .destination-card:hover .explore-link {
             color: var(--primary-color);
         }
         
@@ -599,6 +843,39 @@
     </style>
 </head>
 <body>
+    <!-- Countdown Overlay -->
+    <div class="countdown-overlay" id="countdownOverlay">
+        <div class="particles" id="particles"></div>
+        <div class="countdown-container">
+            <h1 class="countdown-title">EXPLORE WELLAWAYA</h1>
+            <p class="countdown-subtitle">Website Launching In</p>
+            <div class="countdown-numbers">
+                <div class="countdown-item">
+                    <div class="countdown-circle"></div>
+                    <div class="countdown-number" id="days">00</div>
+                    <div class="countdown-label">Days</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="countdown-circle"></div>
+                    <div class="countdown-number" id="hours">00</div>
+                    <div class="countdown-label">Hours</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="countdown-circle"></div>
+                    <div class="countdown-number" id="minutes">00</div>
+                    <div class="countdown-label">Minutes</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="countdown-circle"></div>
+                    <div class="countdown-number" id="seconds">00</div>
+                    <div class="countdown-label">Seconds</div>
+                </div>
+            </div>
+            <button class="skip-button" onclick="skipCountdown()">Skip Countdown</button>
+            <p class="skip-hint">Click anywhere to launch website</p>
+        </div>
+    </div>
+    
     @include('partials.header')
 
     <!-- Hero Section -->
@@ -715,32 +992,61 @@
                 <h2>Featured Destinations</h2>
                 <p>Explore the most beautiful and popular places in Wellawaya</p>
             </div>
-            <div class="destinations-grid">
-                <div class="destination-card">
-                    <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); height: 250px;"></div>
-                    <div class="destination-card-content">
-                        <h3>Bambarakanda Falls</h3>
-                        <p>Discover the highest waterfall in Sri Lanka, surrounded by lush greenery and breathtaking views.</p>
-                        <a href="#">Explore More <i class="fas fa-arrow-right"></i></a>
+            @if(isset($featuredDestinations) && $featuredDestinations->count() > 0)
+                <div class="destinations-grid">
+                    @foreach($featuredDestinations as $destination)
+                        <a href="{{ route('destinations.show', $destination->slug) }}" class="destination-card">
+                            @if($destination->featured_image)
+                                <img src="{{ $destination->featured_image }}" alt="{{ $destination->name }}">
+                            @else
+                                <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); height: 250px; display: flex; align-items: center; justify-content: center;">
+                                    <i class="fas fa-image" style="font-size: 3rem; color: rgba(255,255,255,0.5);"></i>
+                                </div>
+                            @endif
+                            <div class="destination-card-content">
+                                <h3>{{ $destination->name }}</h3>
+                                <p style="color: var(--text-light); margin-bottom: 0.5rem;">
+                                    <i class="fas fa-map-marker-alt" style="margin-right: 0.5rem;"></i>{{ $destination->location }}
+                                </p>
+                                <p>{{ Str::limit(strip_tags($destination->description), 120) }}</p>
+                                <span class="explore-link">
+                                    Explore More <i class="fas fa-arrow-right"></i>
+                                </span>
+                            </div>
+                        </a>
+                    @endforeach
+                </div>
+                <div style="text-align: center; margin-top: 3rem;">
+                    <a href="{{ route('destinations.index') }}" class="btn-primary">View All Destinations</a>
+                </div>
+            @else
+                <div class="destinations-grid">
+                    <div class="destination-card">
+                        <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); height: 250px;"></div>
+                        <div class="destination-card-content">
+                            <h3>Bambarakanda Falls</h3>
+                            <p>Discover the highest waterfall in Sri Lanka, surrounded by lush greenery and breathtaking views.</p>
+                            <a href="{{ route('destinations.index') }}">Explore More <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                    <div class="destination-card">
+                        <div style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); height: 250px;"></div>
+                        <div class="destination-card-content">
+                            <h3>Uva Highlands</h3>
+                            <p>Experience the cool climate and stunning mountain vistas of the Uva province highlands.</p>
+                            <a href="{{ route('destinations.index') }}">Explore More <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                    <div class="destination-card">
+                        <div style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); height: 250px;"></div>
+                        <div class="destination-card-content">
+                            <h3>Ancient Temples</h3>
+                            <p>Visit historic Buddhist temples and immerse yourself in the rich cultural heritage.</p>
+                            <a href="{{ route('destinations.index') }}">Explore More <i class="fas fa-arrow-right"></i></a>
+                        </div>
                     </div>
                 </div>
-                <div class="destination-card">
-                    <div style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); height: 250px;"></div>
-                    <div class="destination-card-content">
-                        <h3>Uva Highlands</h3>
-                        <p>Experience the cool climate and stunning mountain vistas of the Uva province highlands.</p>
-                        <a href="#">Explore More <i class="fas fa-arrow-right"></i></a>
-                    </div>
-                </div>
-                <div class="destination-card">
-                    <div style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); height: 250px;"></div>
-                    <div class="destination-card-content">
-                        <h3>Ancient Temples</h3>
-                        <p>Visit historic Buddhist temples and immerse yourself in the rich cultural heritage.</p>
-                        <a href="#">Explore More <i class="fas fa-arrow-right"></i></a>
-                    </div>
-                </div>
-            </div>
+            @endif
         </div>
     </section>
 
@@ -850,6 +1156,121 @@
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     
     <script>
+        // Countdown Launch Animation
+        (function() {
+            // Check if countdown was already shown
+            if (localStorage.getItem('countdownShown') === 'true') {
+                document.getElementById('countdownOverlay').style.display = 'none';
+                return;
+            }
+            
+            // Create animated particles
+            function createParticles() {
+                const particlesContainer = document.getElementById('particles');
+                const particleCount = 50;
+                
+                for (let i = 0; i < particleCount; i++) {
+                    const particle = document.createElement('div');
+                    particle.className = 'particle';
+                    particle.style.width = Math.random() * 10 + 5 + 'px';
+                    particle.style.height = particle.style.width;
+                    particle.style.left = Math.random() * 100 + '%';
+                    particle.style.top = Math.random() * 100 + '%';
+                    particle.style.animationDelay = Math.random() * 15 + 's';
+                    particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                    particlesContainer.appendChild(particle);
+                }
+            }
+            
+            // Countdown timer
+            function startCountdown() {
+                // Set launch date (you can change this to your actual launch date)
+                const launchDate = new Date();
+                launchDate.setDate(launchDate.getDate() + 1); // 1 day from now (change as needed)
+                launchDate.setHours(0, 0, 0, 0);
+                
+                const daysEl = document.getElementById('days');
+                const hoursEl = document.getElementById('hours');
+                const minutesEl = document.getElementById('minutes');
+                const secondsEl = document.getElementById('seconds');
+                
+                function updateCountdown() {
+                    const now = new Date().getTime();
+                    const distance = launchDate.getTime() - now;
+                    
+                    if (distance < 0) {
+                        // Countdown finished
+                        skipCountdown();
+                        return;
+                    }
+                    
+                    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                    
+                    // Update with animation
+                    if (daysEl.textContent !== String(days).padStart(2, '0')) {
+                        daysEl.textContent = String(days).padStart(2, '0');
+                        daysEl.style.animation = 'none';
+                        setTimeout(() => daysEl.style.animation = 'numberPop 0.5s ease', 10);
+                    }
+                    
+                    if (hoursEl.textContent !== String(hours).padStart(2, '0')) {
+                        hoursEl.textContent = String(hours).padStart(2, '0');
+                        hoursEl.style.animation = 'none';
+                        setTimeout(() => hoursEl.style.animation = 'numberPop 0.5s ease', 10);
+                    }
+                    
+                    if (minutesEl.textContent !== String(minutes).padStart(2, '0')) {
+                        minutesEl.textContent = String(minutes).padStart(2, '0');
+                        minutesEl.style.animation = 'none';
+                        setTimeout(() => minutesEl.style.animation = 'numberPop 0.5s ease', 10);
+                    }
+                    
+                    if (secondsEl.textContent !== String(seconds).padStart(2, '0')) {
+                        secondsEl.textContent = String(seconds).padStart(2, '0');
+                        secondsEl.style.animation = 'none';
+                        setTimeout(() => secondsEl.style.animation = 'numberPop 0.5s ease', 10);
+                    }
+                }
+                
+                updateCountdown();
+                setInterval(updateCountdown, 1000);
+            }
+            
+            // Skip countdown function
+            window.skipCountdown = function() {
+                const overlay = document.getElementById('countdownOverlay');
+                overlay.classList.add('hidden');
+                
+                // Mark as shown in localStorage
+                localStorage.setItem('countdownShown', 'true');
+                
+                // Remove overlay after animation
+                setTimeout(() => {
+                    overlay.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                }, 800);
+            };
+            
+            // Click anywhere to skip
+            document.getElementById('countdownOverlay').addEventListener('click', function(e) {
+                if (e.target.classList.contains('skip-button') || 
+                    e.target.closest('.skip-button')) {
+                    return; // Skip button handles its own click
+                }
+                skipCountdown();
+            });
+            
+            // Prevent body scroll while countdown is showing
+            document.body.style.overflow = 'hidden';
+            
+            // Initialize
+            createParticles();
+            startCountdown();
+        })();
+        
         // Initialize Swiper
         const swiper = new Swiper('.hero-swiper', {
             loop: true,

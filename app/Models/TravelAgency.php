@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class TravelAgency extends Model
 {
     protected $fillable = [
+        'user_id',
         'name',
         'address',
         'registration_number',
