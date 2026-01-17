@@ -328,25 +328,319 @@
             color: rgba(255, 255, 255, 0.6);
         }
         
+        /* Responsive */
         @media (max-width: 768px) {
+            /* Main Content */
+            .main-content {
+                padding: 2rem 0;
+            }
+
+            .container {
+                padding: 0 1.5rem;
+            }
+
+            /* Page Header */
+            .page-header {
+                padding: 2rem 1.5rem;
+                margin-bottom: 2rem;
+                border-radius: 10px;
+            }
+
             .page-header h1 {
-                font-size: 2.5rem;
+                font-size: 1.75rem;
+                margin-bottom: 0.75rem;
             }
-            
+
+            .page-header p {
+                font-size: 1rem;
+            }
+
+            /* Content Section */
             .content-section {
-                padding: 2rem;
+                padding: 1.5rem;
+                margin-bottom: 2rem;
+                border-radius: 10px;
             }
-            
+
+            .content-section h2 {
+                font-size: 1.75rem;
+                margin-bottom: 1.25rem;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+
+            .content-section h2 i {
+                font-size: 1.5rem;
+            }
+
+            .content-section p {
+                font-size: 1rem;
+                margin-bottom: 1.25rem;
+                line-height: 1.7;
+            }
+
+            .content-section ul {
+                margin-left: 1.5rem;
+                margin-bottom: 1.25rem;
+            }
+
+            .content-section li {
+                font-size: 0.95rem;
+                margin-bottom: 0.625rem;
+            }
+
+            /* Image Section */
             .image-section {
                 grid-template-columns: 1fr;
+                gap: 1.5rem;
+                margin: 2rem 0;
             }
-            
+
+            .image-wrapper img {
+                height: 250px;
+            }
+
+            /* Mission & Vision */
             .mission-vision {
                 grid-template-columns: 1fr;
+                gap: 1.5rem;
+                margin: 2rem 0;
             }
-            
+
+            .mission-card,
+            .vision-card {
+                padding: 1.5rem;
+                border-radius: 10px;
+            }
+
+            .mission-card h3,
+            .vision-card h3 {
+                font-size: 1.5rem;
+                margin-bottom: 1rem;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+
+            .mission-card h3 i,
+            .vision-card h3 i {
+                font-size: 1.25rem;
+            }
+
+            .mission-card p,
+            .vision-card p {
+                font-size: 1rem;
+                line-height: 1.7;
+            }
+
+            /* Stats Grid */
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+                margin: 2rem 0;
+            }
+
+            .stat-card {
+                padding: 1.5rem;
+                border-radius: 10px;
+            }
+
+            .stat-card i {
+                font-size: 2.5rem;
+                margin-bottom: 0.75rem;
+            }
+
+            .stat-card h3 {
+                font-size: 2rem;
+                margin-bottom: 0.4rem;
+            }
+
+            .stat-card p {
+                font-size: 1rem;
+            }
+
+            /* Values Grid */
+            .values-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+                margin: 2rem 0;
+            }
+
+            .value-card {
+                padding: 1.5rem;
+                border-radius: 10px;
+            }
+
+            .value-icon {
+                width: 70px;
+                height: 70px;
+                font-size: 1.75rem;
+                margin-bottom: 1.25rem;
+            }
+
+            .value-card h3 {
+                font-size: 1.25rem;
+                margin-bottom: 0.75rem;
+            }
+
+            .value-card p {
+                font-size: 0.95rem;
+            }
+
+            /* CTA Section */
+            .cta-section {
+                padding: 2rem 1.5rem;
+                border-radius: 10px;
+                margin-top: 2rem;
+            }
+
+            .cta-section h2 {
+                font-size: 1.75rem;
+                margin-bottom: 0.75rem;
+            }
+
+            .cta-section p {
+                font-size: 1rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .btn {
+                padding: 0.875rem 2rem;
+                font-size: 1rem;
+            }
+
+            /* Footer */
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .footer-section {
+                text-align: center;
+            }
+
+            .footer-section h3 {
+                font-size: 1.25rem;
+            }
+
+            footer {
+                margin-top: 3rem;
+                padding: 2rem 0 1rem;
+            }
+        }
+
+        /* Extra Small Devices */
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 1rem;
+            }
+
+            .main-content {
+                padding: 1.5rem 0;
+            }
+
+            .page-header {
+                padding: 1.5rem 1rem;
+            }
+
+            .page-header h1 {
+                font-size: 1.5rem;
+            }
+
+            .page-header p {
+                font-size: 0.95rem;
+            }
+
+            .content-section {
+                padding: 1.25rem;
+            }
+
+            .content-section h2 {
+                font-size: 1.5rem;
+            }
+
+            .content-section p {
+                font-size: 0.95rem;
+            }
+
+            .content-section li {
+                font-size: 0.9rem;
+            }
+
+            .image-wrapper img {
+                height: 200px;
+            }
+
+            .mission-card,
+            .vision-card {
+                padding: 1.25rem;
+            }
+
+            .mission-card h3,
+            .vision-card h3 {
+                font-size: 1.25rem;
+            }
+
+            .mission-card p,
+            .vision-card p {
+                font-size: 0.95rem;
+            }
+
             .stats-grid {
                 grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .stat-card {
+                padding: 1.25rem;
+            }
+
+            .stat-card i {
+                font-size: 2rem;
+            }
+
+            .stat-card h3 {
+                font-size: 1.75rem;
+            }
+
+            .stat-card p {
+                font-size: 0.9rem;
+            }
+
+            .value-card {
+                padding: 1.25rem;
+            }
+
+            .value-icon {
+                width: 60px;
+                height: 60px;
+                font-size: 1.5rem;
+            }
+
+            .value-card h3 {
+                font-size: 1.1rem;
+            }
+
+            .value-card p {
+                font-size: 0.9rem;
+            }
+
+            .cta-section {
+                padding: 1.5rem 1rem;
+            }
+
+            .cta-section h2 {
+                font-size: 1.5rem;
+            }
+
+            .cta-section p {
+                font-size: 0.95rem;
+            }
+
+            .btn {
+                padding: 0.75rem 1.5rem;
+                font-size: 0.95rem;
             }
         }
     </style>

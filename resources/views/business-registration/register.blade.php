@@ -288,21 +288,226 @@
             color: var(--primary-color);
         }
 
+        /* Responsive */
         @media (max-width: 768px) {
             body {
-                padding-top: 120px;
+                padding: 1rem;
+                padding-top: 100px;
             }
 
             .register-container {
-                padding: 2rem 1rem;
+                padding: 1.5rem;
+                border-radius: 10px;
+                margin: 0;
             }
 
+            /* Header */
+            .register-header {
+                margin-bottom: 1.5rem;
+            }
+
+            .register-header h1 {
+                font-size: 1.75rem;
+                margin-bottom: 0.5rem;
+            }
+
+            .register-header p {
+                font-size: 1rem;
+            }
+
+            /* Step Indicator */
+            .step-indicator {
+                flex-direction: column;
+                gap: 0.75rem;
+                margin-bottom: 2rem;
+            }
+
+            .step {
+                width: 100%;
+                justify-content: center;
+                padding: 0.75rem 1rem;
+            }
+
+            .step span {
+                font-size: 0.9rem;
+            }
+
+            .step-number {
+                width: 28px;
+                height: 28px;
+                font-size: 0.9rem;
+            }
+
+            /* Category Selection */
             .category-selection {
                 grid-template-columns: 1fr;
+                gap: 0.75rem;
+                margin-bottom: 1.5rem;
             }
 
+            .category-card {
+                padding: 1.25rem;
+            }
+
+            .category-card i {
+                font-size: 2rem;
+                margin-bottom: 0.75rem;
+            }
+
+            .category-card h3 {
+                font-size: 1rem;
+            }
+
+            /* Form Section */
+            .form-section {
+                margin-bottom: 1.5rem;
+            }
+
+            .form-section h2 {
+                font-size: 1.5rem;
+                margin-bottom: 1.25rem;
+            }
+
+            /* Form Groups */
+            .form-group {
+                margin-bottom: 1.25rem;
+            }
+
+            .form-label {
+                font-size: 0.95rem;
+                margin-bottom: 0.4rem;
+            }
+
+            .form-control {
+                padding: 0.7rem;
+                font-size: 0.95rem;
+                border-radius: 6px;
+            }
+
+            textarea.form-control {
+                min-height: 90px;
+            }
+
+            /* Form Row */
             .form-row {
                 grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .form-help {
+                font-size: 0.8rem;
+            }
+
+            /* Alert */
+            .alert {
+                padding: 0.875rem;
+                font-size: 0.9rem;
+                margin-bottom: 1.25rem;
+            }
+
+            .error-message {
+                font-size: 0.85rem;
+                margin-top: 0.4rem;
+            }
+
+            /* Buttons */
+            .btn {
+                padding: 0.75rem 1.5rem;
+                font-size: 0.95rem;
+                width: 100%;
+                text-align: center;
+            }
+
+            .form-actions {
+                flex-direction: column-reverse;
+                gap: 0.75rem;
+                margin-top: 1.5rem;
+            }
+
+            .form-actions .btn {
+                width: 100%;
+            }
+
+            /* Back Link */
+            .back-link {
+                margin-top: 1rem;
+                font-size: 0.9rem;
+                text-align: center;
+                display: block;
+            }
+
+            .back-link a {
+                font-size: 0.9rem;
+                margin: 0.5rem 0.5rem 0.5rem 0;
+            }
+
+            /* Section Headers */
+            .form-section h2 {
+                font-size: 1.35rem;
+            }
+        }
+
+        /* Extra Small Devices */
+        @media (max-width: 480px) {
+            body {
+                padding: 0.75rem;
+                padding-top: 90px;
+            }
+
+            .register-container {
+                padding: 1.25rem;
+            }
+
+            .register-header h1 {
+                font-size: 1.5rem;
+            }
+
+            .register-header p {
+                font-size: 0.95rem;
+            }
+
+            .step {
+                padding: 0.625rem 0.875rem;
+            }
+
+            .step span {
+                font-size: 0.85rem;
+            }
+
+            .step-number {
+                width: 24px;
+                height: 24px;
+                font-size: 0.85rem;
+            }
+
+            .category-card {
+                padding: 1rem;
+            }
+
+            .category-card i {
+                font-size: 1.75rem;
+            }
+
+            .category-card h3 {
+                font-size: 0.95rem;
+            }
+
+            .form-control {
+                padding: 0.625rem;
+                font-size: 0.9rem;
+            }
+
+            .form-section h2 {
+                font-size: 1.25rem;
+            }
+
+            .btn {
+                padding: 0.7rem 1.25rem;
+                font-size: 0.9rem;
+            }
+
+            .form-help {
+                font-size: 0.75rem;
             }
         }
     </style>

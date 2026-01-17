@@ -241,14 +241,26 @@
 
         /* Pagination */
         .pagination {
-            display: flex;
+            display: flex !important;
             justify-content: center;
             gap: 0.5rem;
             margin-top: 3rem;
+            list-style: none;
+            padding: 0;
+            flex-wrap: wrap;
         }
 
-        .pagination a,
-        .pagination span {
+        .pagination > li {
+            display: inline-block;
+            margin: 0;
+            list-style: none;
+        }
+
+        .pagination .page-item {
+            margin: 0 0.25rem;
+        }
+
+        .pagination .page-link {
             padding: 0.5rem 1rem;
             border-radius: 5px;
             text-decoration: none;
@@ -256,18 +268,58 @@
             background: var(--white);
             border: 1px solid #e9ecef;
             transition: all 0.3s ease;
+            display: inline-block;
+            min-width: 40px;
+            text-align: center;
+            cursor: pointer;
         }
 
-        .pagination a:hover {
+        .pagination .page-link:hover {
             background: var(--secondary-color);
             color: var(--white);
             border-color: var(--secondary-color);
+            text-decoration: none;
         }
 
-        .pagination .active span {
+        .pagination .page-item.active .page-link {
             background: var(--primary-color);
             color: var(--white);
             border-color: var(--primary-color);
+            cursor: default;
+            z-index: 1;
+        }
+
+        .pagination .page-item.active .page-link:hover {
+            background: var(--primary-color);
+            color: var(--white);
+            border-color: var(--primary-color);
+        }
+
+        .pagination .page-item.disabled .page-link {
+            background: var(--light-bg);
+            color: var(--text-light);
+            border-color: #e9ecef;
+            cursor: not-allowed;
+            opacity: 0.6;
+            pointer-events: none;
+        }
+
+        .pagination .page-item.disabled .page-link:hover {
+            background: var(--light-bg);
+            color: var(--text-light);
+            border-color: #e9ecef;
+        }
+
+        .pagination .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
         }
 
         /* Footer */
@@ -309,16 +361,167 @@
 
         /* Responsive */
         @media (max-width: 768px) {
-            .destinations-grid {
-                grid-template-columns: 1fr;
+            /* Main Content */
+            .main-content {
+                padding: 2rem 0;
+            }
+
+            .container {
+                padding: 0 1.5rem;
+            }
+
+            /* Page Header */
+            .page-header {
+                margin-bottom: 2rem;
             }
 
             .page-header h1 {
-                font-size: 2rem;
+                font-size: 1.75rem;
+                margin-bottom: 0.5rem;
             }
 
+            .page-header p {
+                font-size: 1rem;
+            }
+
+            /* Filters */
             .filters {
                 justify-content: flex-start;
+                gap: 0.75rem;
+                margin-bottom: 1.5rem;
+                overflow-x: auto;
+                padding-bottom: 0.5rem;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+            }
+
+            .filters::-webkit-scrollbar {
+                display: none;
+            }
+
+            .filter-btn {
+                padding: 0.5rem 1rem;
+                font-size: 0.875rem;
+                white-space: nowrap;
+                flex-shrink: 0;
+            }
+
+            /* Destinations Grid */
+            .destinations-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+                margin-bottom: 2rem;
+            }
+
+            .destination-card {
+                margin-bottom: 0;
+            }
+
+            .destination-card-image {
+                height: 200px;
+            }
+
+            .destination-card-content {
+                padding: 1.25rem;
+            }
+
+            .destination-card-title {
+                font-size: 1.25rem;
+                margin-bottom: 0.5rem;
+            }
+
+            .destination-card-location {
+                font-size: 0.85rem;
+                margin-bottom: 0.75rem;
+            }
+
+            .destination-card-description {
+                font-size: 0.9rem;
+                margin-bottom: 0.75rem;
+                -webkit-line-clamp: 3;
+            }
+
+            .destination-card-footer {
+                padding-top: 0.75rem;
+            }
+
+            .read-more {
+                font-size: 0.9rem;
+            }
+
+            /* Empty State */
+            .empty-state {
+                padding: 3rem 1.5rem;
+            }
+
+            .empty-state i {
+                font-size: 3rem;
+            }
+
+            .empty-state h2 {
+                font-size: 1.25rem;
+            }
+
+            /* Pagination */
+            .pagination {
+                flex-wrap: wrap;
+                gap: 0.5rem;
+            }
+
+            .pagination .page-item {
+                margin: 0 0.15rem;
+            }
+
+            .pagination .page-link {
+                padding: 0.5rem 0.75rem;
+                font-size: 0.875rem;
+                min-width: 36px;
+            }
+
+            /* Footer */
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .footer-section {
+                text-align: center;
+            }
+
+            .footer-section h3 {
+                font-size: 1.25rem;
+            }
+        }
+
+        /* Extra Small Devices */
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 1rem;
+            }
+
+            .page-header h1 {
+                font-size: 1.5rem;
+            }
+
+            .main-content {
+                padding: 1.5rem 0;
+            }
+
+            .destinations-grid {
+                gap: 1.25rem;
+            }
+
+            .destination-card-content {
+                padding: 1rem;
+            }
+
+            .destination-card-title {
+                font-size: 1.1rem;
+            }
+
+            .filter-btn {
+                padding: 0.4rem 0.85rem;
+                font-size: 0.8rem;
             }
         }
     </style>
@@ -376,9 +579,7 @@
                 </div>
 
                 @if($destinations->hasPages())
-                    <div class="pagination">
-                        {{ $destinations->links() }}
-                    </div>
+                    {{ $destinations->links() }}
                 @endif
             @else
                 <div class="empty-state">

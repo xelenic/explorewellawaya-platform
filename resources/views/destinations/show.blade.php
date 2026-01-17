@@ -439,34 +439,257 @@
         
         /* Responsive */
         @media (max-width: 768px) {
+            /* Main Content */
+            .main-content {
+                padding: 2rem 0;
+            }
+
+            .container {
+                padding: 0 1.5rem;
+                max-width: 100%;
+            }
+
+            /* Back Link */
+            .back-link {
+                margin-bottom: 1.5rem;
+                font-size: 0.9rem;
+            }
+
+            /* Destination Header */
+            .destination-header {
+                margin-bottom: 2rem;
+            }
+
             .destination-title {
-                font-size: 2rem;
+                font-size: 1.75rem;
+                margin-bottom: 1rem;
+                line-height: 1.3;
             }
-            
-            .destination-content {
-                padding: 2rem;
+
+            .destination-meta {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: flex-start;
             }
-            
+
+            .category-badge {
+                font-size: 0.875rem;
+                padding: 0.4rem 1rem;
+            }
+
+            .destination-meta span {
+                font-size: 0.9rem;
+            }
+
+            /* Destination Image */
             .destination-image {
-                height: 300px;
+                height: 250px;
+                margin-bottom: 2rem;
+                border-radius: 10px;
             }
-            
+
+            .destination-image i {
+                font-size: 3rem;
+            }
+
+            /* Destination Content */
+            .destination-content {
+                padding: 1.5rem;
+                border-radius: 10px;
+                margin-bottom: 1.5rem;
+            }
+
+            .info-section {
+                margin-bottom: 2rem;
+            }
+
+            .info-section:last-child {
+                margin-bottom: 0;
+            }
+
+            .info-section h3 {
+                font-size: 1.25rem;
+                margin-bottom: 0.75rem;
+            }
+
+            .info-section h3 i {
+                font-size: 1.1rem;
+            }
+
+            .info-section p {
+                font-size: 0.95rem;
+                line-height: 1.7;
+                margin-bottom: 0.75rem;
+            }
+
+            .highlights-list li {
+                padding: 0.5rem 0;
+                padding-left: 1.75rem;
+                font-size: 0.9rem;
+            }
+
+            /* Map Container */
+            .map-container {
+                height: 250px;
+                border-radius: 10px;
+            }
+
+            /* Image Gallery */
+            .image-gallery {
+                margin-top: 1.5rem;
+            }
+
+            .image-gallery h3 {
+                font-size: 1.25rem;
+                margin-bottom: 1rem;
+            }
+
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+                gap: 0.75rem;
+            }
+
+            .gallery-item {
+                height: 120px;
+                border-radius: 8px;
+            }
+
+            /* Related Destinations */
+            .related-destinations {
+                margin-top: 3rem;
+            }
+
+            .related-destinations h2 {
+                font-size: 1.5rem;
+                margin-bottom: 1.5rem;
+            }
+
             .related-grid {
                 grid-template-columns: 1fr;
+                gap: 1.25rem;
             }
-            
-        .map-container {
-            height: 300px;
+
+            .related-card-image {
+                height: 180px;
+            }
+
+            .related-card-content {
+                padding: 1.25rem;
+            }
+
+            .related-card-title {
+                font-size: 1.1rem;
+            }
+
+            .related-card-location {
+                font-size: 0.85rem;
+            }
+
+            /* Lightbox */
+            .lightbox-content {
+                padding: 1rem;
+                width: 95%;
+            }
+
+            .lightbox-close {
+                top: 1rem;
+                right: 1rem;
+                width: 40px;
+                height: 40px;
+                font-size: 1.5rem;
+            }
+
+            .lightbox-nav {
+                width: 40px;
+                height: 40px;
+                padding: 0.75rem;
+                font-size: 1.25rem;
+            }
+
+            .lightbox-prev {
+                left: 1rem;
+            }
+
+            .lightbox-next {
+                right: 1rem;
+            }
+
+            .lightbox-image {
+                max-height: 70vh;
+                border-radius: 8px;
+            }
+
+            /* Footer */
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .footer-section {
+                text-align: center;
+            }
+
+            .footer-section h3 {
+                font-size: 1.25rem;
+            }
+
+            footer {
+                margin-top: 3rem;
+                padding: 2rem 0 1rem;
+            }
         }
 
-        .gallery-grid {
-            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-        }
+        /* Extra Small Devices */
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 1rem;
+            }
 
-        .gallery-item {
-            height: 150px;
+            .main-content {
+                padding: 1.5rem 0;
+            }
+
+            .destination-title {
+                font-size: 1.5rem;
+            }
+
+            .destination-image {
+                height: 200px;
+            }
+
+            .destination-content {
+                padding: 1.25rem;
+            }
+
+            .info-section h3 {
+                font-size: 1.1rem;
+            }
+
+            .info-section p {
+                font-size: 0.9rem;
+            }
+
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+                gap: 0.5rem;
+            }
+
+            .gallery-item {
+                height: 100px;
+            }
+
+            .map-container {
+                height: 200px;
+            }
+
+            .lightbox-content {
+                padding: 0.5rem;
+            }
+
+            .lightbox-image {
+                max-height: 60vh;
+            }
         }
-    }
     </style>
 </head>
 <body>
